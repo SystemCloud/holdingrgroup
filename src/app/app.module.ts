@@ -19,6 +19,10 @@ import { ContactoComponent } from './components/contacto/contacto.component';
 import { ServiciosComponent } from './components/servicios/servicios.component';
 
 import { AgmCoreModule } from '@agm/core';
+import { PostsComponent } from './components/posts/posts.component';
+import { EmpleadomesComponent } from './components/empleadomes/empleadomes.component';
+import { NoticiasComponent } from './components/noticias/noticias.component';
+import { EmpleadosmesComponent } from './components/empleadosmes/empleadosmes.component';
 
 
 @NgModule({
@@ -36,7 +40,11 @@ import { AgmCoreModule } from '@agm/core';
     InicioComponent,
     GaleriaComponent,
     ContactoComponent,
-    ServiciosComponent
+    ServiciosComponent,
+    PostsComponent,
+    EmpleadomesComponent,
+    NoticiasComponent,
+    EmpleadosmesComponent
   ],
   imports: [
     BrowserModule,
