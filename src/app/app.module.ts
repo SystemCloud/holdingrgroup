@@ -33,6 +33,8 @@ import { EmpleadosmesComponent } from './components/empleadosmes/empleadosmes.co
 import { LoginComponent } from './components/login/login.component';
 import { AdministrarComponent } from './components/administrar/administrar.component';
 
+import { ModalModule } from 'ngx-modialog';
+import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 
 
 
@@ -63,6 +65,8 @@ import { AdministrarComponent } from './components/administrar/administrar.compo
     BrowserModule,
     app_routing,
     FormsModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
