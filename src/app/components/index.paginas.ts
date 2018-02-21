@@ -5,3 +5,5 @@ export { ServiciosComponent } from "./servicios/servicios.component";
 export { ContactoComponent } from "./contacto/contacto.component";
 export { NoticiasComponent } from "./noticias/noticias.component";
 export { EmpleadosmesComponent } from "./empleadosmes/empleadosmes.component";
+export { LoginComponent } from "./login/login.component";
+export { AdministrarComponent } from "./administrar/administrar.component";

@@ -1,5 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
 
 import { app_routing } from "./app.routes";
 
@@ -23,6 +30,10 @@ import { PostsComponent } from './components/posts/posts.component';
 import { EmpleadomesComponent } from './components/empleadomes/empleadomes.component';
 import { NoticiasComponent } from './components/noticias/noticias.component';
 import { EmpleadosmesComponent } from './components/empleadosmes/empleadosmes.component';
+import { LoginComponent } from './components/login/login.component';
+import { AdministrarComponent } from './components/administrar/administrar.component';
+
+
 
 
 @NgModule({
@@ -44,11 +55,18 @@ import { EmpleadosmesComponent } from './components/empleadosmes/empleadosmes.co
     PostsComponent,
     EmpleadomesComponent,
     NoticiasComponent,
-    EmpleadosmesComponent
+    EmpleadosmesComponent,
+    LoginComponent,
+    AdministrarComponent
   ],
   imports: [
     BrowserModule,
     app_routing,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBAZ5UIAMzj8cqqWZSBxtXCta5BVCAsxl4'
     })

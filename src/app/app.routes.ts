@@ -6,7 +6,9 @@ import {
 	ServiciosComponent,
 	ContactoComponent,
 	NoticiasComponent,
-	EmpleadosmesComponent
+	EmpleadosmesComponent,
+	LoginComponent,
+	AdministrarComponent
 } from "./components/index.paginas";
 
 
@@ -18,6 +20,8 @@ const app_routes: Routes = [
 	{ path: 'servicios', component: ServiciosComponent},
 	{ path: 'contacto', component: ContactoComponent},
 	{ path: 'empleadosmes', component: EmpleadosmesComponent},
+	{ path: 'administrador', component: AdministrarComponent},
+	{ path: 'admin', component: LoginComponent},
 	{ path: '**', pathMatch: 'full', redirectTo: 'home'}
 ];
 
