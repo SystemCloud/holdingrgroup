@@ -33,8 +33,8 @@ import { EmpleadosmesComponent } from './components/empleadosmes/empleadosmes.co
 import { LoginComponent } from './components/login/login.component';
 import { AdministrarComponent } from './components/administrar/administrar.component';
 
-
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NoticiasService } from './providers/noticias.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +63,7 @@ import { AdministrarComponent } from './components/administrar/administrar.compo
     BrowserModule,
     app_routing,
     FormsModule,
+    NgbModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
@@ -71,7 +72,9 @@ import { AdministrarComponent } from './components/administrar/administrar.compo
       apiKey: 'AIzaSyBAZ5UIAMzj8cqqWZSBxtXCta5BVCAsxl4'
     })
   ],
-  providers: [],
+  providers: [
+      NoticiasService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

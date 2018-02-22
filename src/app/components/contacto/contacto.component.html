@@ -40,38 +40,31 @@
 
 				<h2 class="mb-sm mt-sm"><strong>Contactanos</strong></h2>
 				<form id="contactForm" action="php/contact-form.php" method="POST">
-					<div class="row">
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Tu nombre *</label>
-								<input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control" name="name" id="name" required>
-							</div>
-							<div class="col-md-6">
-								<label>Tu correo *</label>
-								<input type="email" value="" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control" name="email" id="email" required>
-							</div>
+					
+					<div class="form-group">
+						<div class="col-md-6">
+							<label>Tu nombre *</label>
+							<input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control" name="name" id="name" required>
+						</div>
+						<div class="col-md-6">
+							<label>Tu correo *</label>
+							<input type="email" value="" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control" name="email" id="email" required>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group">
-							<div class="col-md-12">
-								<label>Asunto</label>
-								<input type="text" value="" data-msg-required="Please enter the subject." maxlength="100" class="form-control" name="subject" id="subject" required>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-							<div class="col-md-12">
-								<label>Mensaje *</label>
-								<textarea maxlength="5000" data-msg-required="Please enter your message." rows="10" class="form-control" name="message" id="message" required></textarea>
-							</div>
-						</div>
-					</div>
-					<div class="row">
+					<div class="form-group">
 						<div class="col-md-12">
-							<input type="submit" value="Enviar" class="btn btn-primary btn-lg mb-xlg" data-loading-text="Loading...">
+							<label>Asunto</label>
+							<input type="text" value="" data-msg-required="Please enter the subject." maxlength="100" class="form-control" name="subject" id="subject" required>
 						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+							<label>Mensaje *</label>
+							<textarea maxlength="5000" data-msg-required="Please enter your message." rows="10" class="form-control" name="message" id="message" required></textarea>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<input type="submit" value="Enviar" class="btn btn-primary btn-lg mb-xlg" data-loading-text="Loading...">
 					</div>
 				</form>
 			</div>

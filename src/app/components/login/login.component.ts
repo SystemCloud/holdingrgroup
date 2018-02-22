@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
+import {Subject} from 'rxjs/Subject';
+import {debounceTime} from 'rxjs/operator/debounceTime';
 
 @Component({
 	selector: 'app-login',
@@ -11,7 +13,11 @@ import * as firebase from 'firebase/app';
 export class LoginComponent implements OnInit {
 
 	public usuario;
+	public mensaje = "";
+	private _success = new Subject<string>();
 
+	staticAlertClosed = false;
+	successMessage: string;
 
 	constructor(public afAuth: AngularFireAuth, private router:Router) {
 		this.usuario = {
@@ -20,7 +26,6 @@ export class LoginComponent implements OnInit {
 		}
 
 		this.afAuth.authState.subscribe( user =>{
-			console.log("Estado del usuario: ", user);
 			if(!user){
 				return true;
 			}
@@ -30,24 +35,31 @@ export class LoginComponent implements OnInit {
 			}
 		});
 
-		
 	}
 
 	login(correo, pass) {
-		this.afAuth.auth.signInWithEmailAndPassword(correo, pass);
-		console.log()
+		this.afAuth.auth.signInWithEmailAndPassword(correo, pass).catch(login =>{
+			this.changeSuccessMessage();
+		});
+		
 	}
 
 	logout() {
 		this.afAuth.auth.signOut();
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
+		setTimeout(() => this.staticAlertClosed = true, 20000);
+
+		this._success.subscribe((message) => this.successMessage = message);
+		debounceTime.call(this._success, 10000).subscribe(() => this.successMessage = null);
+	}
+
+	public changeSuccessMessage() {
+		this._success.next(`!Credenciales invalidas!`);
 	}
 
 	onSubmit(){
-		console.log(this.usuario.password);
 		this.login(this.usuario.correo, this.usuario.password);
 	}
-
 }

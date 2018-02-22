@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { NoticiasService } from '../../providers/noticias.service';
 
 @Component({
-  selector: 'app-noticias',
-  templateUrl: './noticias.component.html',
-  styles: []
+	selector: 'app-noticias',
+	templateUrl: './noticias.component.html',
+	styles: []
 })
 export class NoticiasComponent implements OnInit {
+	estadoLado: boolean = true;
 
-  constructor() { }
+	constructor(public _ns: NoticiasService) { 
+		this._ns.cargarNoticias().subscribe();
+	}
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
+
+	cambiarclase(){
+		this.estadoLado = !this.estadoLado; 
+	}
 
 }

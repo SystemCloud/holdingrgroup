@@ -17,9 +17,9 @@
 					<div class="timeline-body">
 						<div class="timeline-date">
 							<h3 class="heading-primary">November 2013</h3>
-						</div>
-
-						<article class="timeline-box left post post-medium">
+						</div> 
+						<article class="timeline-box post post-medium" [ngClass]="{left: estadoLado, right: !estadoLado}" *ngFor="let noticia of _ns.noticias">
+							{{cambiarclase()}}
 							<div class="row">
 
 								<div class="col-md-12">
@@ -43,7 +43,7 @@
 								<div class="col-md-12">
 
 									<div class="post-content">
-										<h4 class="heading-primary"><a href="blog-post.html">Class aptent taciti sociosqu ad litora.</a></h4>
+										<h4 class="heading-primary"><a href="blog-post.html">{{noticia.titulo}}</a></h4>
 										<p>Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
 									</div>
 
@@ -70,7 +70,6 @@
 									<a href="blog-post.html" class="btn btn-xs btn-primary pull-right">Read more...</a>
 								</div>
 							</div>
-
 						</article>
 
 						<article class="timeline-box right post post-medium">

@@ -13,50 +13,50 @@
 		<div class="col-md-12">
 
 			<div class="featured-boxes">
+
+				<ngb-alert *ngIf="successMessage" type="danger" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+				
 				<div class="row">
+
 					<div class="col-sm-3"></div>
 					<div class="col-sm-6">
 						<div class="featured-box featured-box-primary align-left mt-xlg">
 							<div class="box-content">
 								<h4 class="heading-primary text-uppercase mb-md">Iniciar Sesion</h4>
 								<form (ngSubmit)="onSubmit()" id="frmSignIn" method="post">
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12">
-												<label>Correo</label>
-												<input ngControl="correo" [(ngModel)]="usuario.correo" name="correo" type="text" value="" class="form-control input-lg">
-											</div>
+									
+									<div class="form-group">
+										<div class="col-md-12">
+											<label>Correo</label>
+											<input ngControl="correo" [(ngModel)]="usuario.correo" name="correo" type="text" value="" class="form-control input-lg">
 										</div>
 									</div>
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12">
-												<label>Contraseña</label>
-												<input 
-													type="password" ngControl="password" [(ngModel)]="usuario.password" 
-													name="password"  
-													value="" 
-													class="form-control input-lg">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6">
-											<span class="remember-box checkbox">
-												<label for="rememberme">
-													<input 
-														type="checkbox" 
-														id="rememberme" 
-														name="rememberme">Remember Me
-												</label>
-											</span>
-										</div>
-										<div class="col-md-6">
+									<div class="form-group">
+										<div class="col-md-12">
+											<label>Contraseña</label>
 											<input 
-												type="submit" 
-												value="INGRESAR" 
-												class="btn btn-primary pull-right mb-xl" 
-												data-loading-text="Loading...">
+											type="password" ngControl="password" [(ngModel)]="usuario.password" 
+											name="password"  
+											value="" 
+											class="form-control input-lg">
+										</div>
+									</div>
+									<div class="col-md-12">
+										<span class="remember-box checkbox" style="margin-top: 20px;">
+											<label for="rememberme">
+												<input 
+												type="checkbox" 
+												id="rememberme" 
+												name="rememberme">Remember Me
+											</label>
+										</span>
+										<div class="col-md-12">
+											<input 
+											type="submit" 
+											style="float: right;" 
+											value="INGRESAR" 
+											class="btn btn-primary pull-right mb-xl" 
+											data-loading-text="Loading...">
 										</div>
 									</div>
 								</form>
