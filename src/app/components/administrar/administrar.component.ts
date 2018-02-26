@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
+import { AngularFireStorage } from 'angularfire2/storage';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { NoticiasService } from '../../providers/noticias.service';
+import { Noticia } from '../../interface/noticia.interface';
 
 @Component({
 	selector: 'app-administrar',
@@ -12,10 +14,13 @@ import { NoticiasService } from '../../providers/noticias.service';
 })
 export class AdministrarComponent implements OnInit {
 	public noticia;
+	public event;
+	public nombreImg;
 	closeResult: string;
-	constructor(public afAuth: AngularFireAuth, private router:Router, private modalService: NgbModal, public _ns: NoticiasService) {		
+	profileUrl;
+
+	constructor(private storage: AngularFireStorage, public afAuth: AngularFireAuth, private router:Router, private modalService: NgbModal, public _ns: NoticiasService) {		
 		this.afAuth.authState.subscribe( user =>{
-			console.log("Estado del usuario: ", user);
 			if(!user){
 				this.router.navigate(['/home']);
 			}
@@ -24,8 +29,7 @@ export class AdministrarComponent implements OnInit {
 			"titulo": "",
 			"descripcion": ""
 		}
-
-		const noticias = _ns.noticias;
+		this._ns.cargarNoticias().subscribe();
 	}
 
 	ngOnInit() {
@@ -35,35 +39,87 @@ export class AdministrarComponent implements OnInit {
 		this.afAuth.auth.signOut();
 	}
 
-	open(content) {
+	updateNoticia(estado = "registrar", noticiaa = null){
+		const date = new Date();
+		const fecha: string = date.getDate().toString() + "/" 
+		+ (date.getMonth() + 1).toString() + "/" 
+		+ date.getFullYear().toString();
+		let noticia: Noticia = {
+			titulo: this.noticia.titulo,
+			descripcion: this.noticia.descripcion,
+			fecha: fecha,
+			tiempo: date.getTime(),
+			nombreImg: this.nombreImg
+		}
+		if(estado != "actualizar"){ 
+			this._ns.uploadFile(this.event, this.nombreImg);			
+		}
+		if(noticiaa != null){
+			noticiaa.titulo = this.noticia.titulo;
+			noticiaa.descripcion = this.noticia.descripcion;
+			noticia = noticiaa;
+			console.log(noticia);
+		}		
+		this._ns.updateNoticia(noticia);
+	}
+
+	limpiar(titulo = "", descripcion = ""){
+		this.noticia.titulo = titulo;
+		this.noticia.descripcion = descripcion;
+	}
+
+	reemplazarDatos(noticia){
+		console.log(noticia);
+		this.limpiar(noticia.titulo, noticia.descripcion);
+	}
+
+	abrirModal(content, posicion, accion, noticia = null) {
+		if(noticia != null){this.reemplazarDatos(noticia);}
 		this.modalService.open(content).result.then((result) => {
-			this.guardarNoticia();
-			this.closeResult = `Closed with: ${result}`;
+			
+			switch (posicion) {
+				case "1":
+					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar", noticia)}
+					this.limpiar();
+					break;
+				case "2":
+					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
+					break;
+				case "3":
+					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
+					break;
+				case "4":
+					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
+					break;
+				
+				default:
+					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
+					break;
+			}
 		}, (reason) => {
-			this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 		});
 	}
 
-	private getDismissReason(reason: any): string {
-		if (reason === ModalDismissReasons.ESC) {
-			return 'by pressing ESC';
-		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {			
-			return 'by clicking on a backdrop';
-		} else {
-			return  `with: ${reason}`;
-		}
+	capturarEvent(event){
+		//debemos agregar el tiempo al nombre o hacer algo para que el nombre sea unico
+		this.event = event;
+		this.nombreImg = event.target.files[0].name;
 	}
 
 	subirImagen(event){
-		console.log("imagen");
-		this._ns.uploadFile(event);
+		this._ns.uploadFile(event, this.nombreImg);
 	}
 
-	guardarNoticia(){
-		this._ns.agregarNoticia(this.noticia.titulo, this.noticia.descripcion).then(()=>this.noticia.titulo == "");
+	eliminarNoticia(key){
+		this._ns.eliminarNoticia(key);
 	}
 
-	guardarSobreNosotros(){
-		
+	verImagen(nombre, content){
+		const ref = this.storage.ref('img/' + nombre);
+		this.profileUrl = ref.getDownloadURL();
+		this.modalService.open(content).result.then((result) => {
+		}, (reason) => {
+		});
 	}
+
 }

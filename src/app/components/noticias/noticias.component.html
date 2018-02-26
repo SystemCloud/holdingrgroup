@@ -18,8 +18,8 @@
 						<div class="timeline-date">
 							<h3 class="heading-primary">November 2013</h3>
 						</div> 
-						<article class="timeline-box post post-medium" [ngClass]="{left: estadoLado, right: !estadoLado}" *ngFor="let noticia of _ns.noticias">
-							{{cambiarclase()}}
+						<article class="timeline-box post post-medium" [ngClass]="{'left': estadoLado, 'right': !estadoLado}" *ngFor="let noticia of _ns.noticias">
+							{{ cambiarclase() }}
 							<div class="row">
 
 								<div class="col-md-12">

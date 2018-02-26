@@ -26,7 +26,7 @@
 							<ng-template ngbTabContent>
 								<div class="col-md-9"><h4><strong>Noticias</strong></h4></div>
 								<div class="col-md-3">
-									<button (click)="open(noticias)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm">Agregar</button>
+									<button (click)="abrirModal(noticias, '1', '1')" type="button" class="btn btn-3d btn-primary mr-xs mb-sm">Agregar</button>
 								</div>
 
 
@@ -46,6 +46,9 @@
 												Fecha
 											</th>
 											<th>
+												Imagen
+											</th>
+											<th>
 												Operaciones
 											</th>
 										</tr>
@@ -53,20 +56,23 @@
 									<tbody>
 										<tr *ngFor="let noticia of _ns.noticias">
 											<td width="5%">
-												{{noticia.uid}}
+												{{noticia.tiempo}}
 											</td>
 											<td width="20%">
 												{{noticia.titulo}}
 											</td>
-											<td width="40%">
+											<td width="35%">
 												{{noticia.descripcion}}
 											</td>
-											<td width="15%">
+											<td width="10%">
 												{{noticia.fecha}}
 											</td>
+											<td width="10%">
+												<button (click)="verImagen(noticia.nombreImg, imagene)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm btn-xs">Ver Imagen</button>
+											</td>
 											<td width="20%">
-												<button (click)="open(noticias)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm btn-xs">Editar</button>
-												<button (click)="open(noticias)" type="button" class="btn btn-3d btn-secondary mr-xs mb-sm btn-xs">Eliminar</button>
+												<button (click)="abrirModal(noticias, '1', '2', noticia)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm btn-xs">Editar</button>
+												<button (click)="eliminarNoticia(noticia.tiempo)" type="button" class="btn btn-3d btn-secondary mr-xs mb-sm btn-xs">Eliminar</button>
 											</td>
 										</tr>
 									</tbody>
@@ -275,15 +281,15 @@
 		<form (ngSubmit)="guardarNoticia()" id="frmNtc">
 			<div class="form-group">
 				<label for="formGroupExampleInput"><strong>Titulo</strong></label>
-				<input [(ngModel)]="noticia.titulo" name="titulo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingresar titulo">
+				<input [(ngModel)]="noticia.titulo" required name="titulo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingresar titulo">
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1"><strong>Descripcion</strong></label>
-				<textarea [(ngModel)]="noticia.descripcion" name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				<textarea [(ngModel)]="noticia.descripcion" required name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlFile1"><strong>Seleccionar una foto</strong></label>
-				<input [(ngModel)]="imagen" name="imagen" type="file" (change)="subirImagen($event)" class="form-control-file" id="exampleFormControlFile1">
+				<input [(ngModel)]="imagen" name="imagen" required type="file" (change)="capturarEvent($event)" class="form-control-file" id="exampleFormControlFile1">
 			</div>
 		</form>
 	</div>
@@ -292,7 +298,24 @@
 	</div>
 </ng-template>
 
-<ng-template #empleadomes let-c="close" let-d="dismiss">
+<ng-template #imagene let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title">Detalle de Imagen</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body" style="padding: 20px;">
+		<div>
+			<img style="width: 100%" [src]="profileUrl | async">
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-outline-dark" (click)="c('Close click')">Cerrar</button>
+	</div>
+</ng-template>
+
+<!--<ng-template #empleadomes let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<h4 class="modal-title">Agregar Empleado del Mes</h4>
 		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -402,4 +425,4 @@
 	<div class="modal-footer">
 		<button type="submit" class="btn btn-outline-dark" (click)="c('Close click')">Guardar</button>
 	</div>
-</ng-template>
+</ng-template>-->

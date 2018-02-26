@@ -4,4 +4,5 @@ export interface Noticia{
 	descripcion: string;
 	fecha?: string;
 	tiempo: number;
+	nombreImg: string;
 }
