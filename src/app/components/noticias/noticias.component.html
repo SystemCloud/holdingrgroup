@@ -18,33 +18,31 @@
 						<div class="timeline-date">
 							<h3 class="heading-primary">November 2013</h3>
 						</div> 
+						<!--{{imagen(_ns.noticias)}}-->
 						<article class="timeline-box post post-medium" [ngClass]="{'left': estadoLado, 'right': !estadoLado}" *ngFor="let noticia of _ns.noticias">
 							{{ cambiarclase() }}
-							<div class="row">
+							<!--<div class="row">
 
 								<div class="col-md-12">
 									<div class="post-image">
-										<div class="owl-carousel owl-theme" data-plugin-options='{"items":1}'>
+										<div class="owl-theme" >
 											<div>
 												<div class="img-thumbnail">
-													<img class="img-responsive" src="assets/img/blog/blog-image-1.jpg" alt="">
-												</div>
-											</div>
-											<div>
-												<div class="img-thumbnail">
-													<img class="img-responsive" src="assets/img/blog/blog-image-2.jpg" alt="">
+													
+													<img class="img-responsive" [src]="imagenes[0] | async" alt="">
+													
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							</div>-->
 							<div class="row">
 								<div class="col-md-12">
 
 									<div class="post-content">
 										<h4 class="heading-primary"><a href="blog-post.html">{{noticia.titulo}}</a></h4>
-										<p>Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
+										<p>{{ noticia.descripcion}} </p>
 									</div>
 
 								</div>
@@ -52,22 +50,20 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="post-meta">
-										<span><i class="fa fa-calendar"></i> January 10, 2015 </span><br>
+										<span><i class="fa fa-calendar"></i> {{noticia.fecha}} </span><br>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="post-meta">
-										<span><i class="fa fa-user"></i> By <a href="#">John Doe</a> </span>
-										<span><i class="fa fa-tag"></i> <a href="#">Duis</a>, <a href="#">News</a> </span>
-										<span><i class="fa fa-comments"></i> <a href="#">12 Comments</a></span>
+										<span><i class="fa fa-user"></i> By <a >Oscar Salcedo</a> </span>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<a href="blog-post.html" class="btn btn-xs btn-primary pull-right">Read more...</a>
+									<a routerLink="['/noticia', noticia]" class="btn btn-xs btn-primary pull-right">Leer Mas</a>
 								</div>
 							</div>
 						</article>

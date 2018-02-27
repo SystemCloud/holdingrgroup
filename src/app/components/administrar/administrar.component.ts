@@ -5,7 +5,9 @@ import * as firebase from 'firebase/app';
 import { AngularFireStorage } from 'angularfire2/storage';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { NoticiasService } from '../../providers/noticias.service';
+import { NosotrosService } from '../../providers/nosotros.service';
 import { Noticia } from '../../interface/noticia.interface';
+import { Nosotros } from '../../interface/nosotros.interface';
 
 @Component({
 	selector: 'app-administrar',
@@ -19,7 +21,12 @@ export class AdministrarComponent implements OnInit {
 	closeResult: string;
 	profileUrl;
 
-	constructor(private storage: AngularFireStorage, public afAuth: AngularFireAuth, private router:Router, private modalService: NgbModal, public _ns: NoticiasService) {		
+	constructor(private storage: AngularFireStorage, 
+		public afAuth: AngularFireAuth, 
+		private router:Router, 
+		private modalService: NgbModal, 
+		public _ns: NoticiasService,
+		public _nos: NosotrosService) {		
 		this.afAuth.authState.subscribe( user =>{
 			if(!user){
 				this.router.navigate(['/home']);
@@ -30,6 +37,7 @@ export class AdministrarComponent implements OnInit {
 			"descripcion": ""
 		}
 		this._ns.cargarNoticias().subscribe();
+		this._nos.cargarNosotros().subscribe();
 	}
 
 	ngOnInit() {
@@ -63,6 +71,19 @@ export class AdministrarComponent implements OnInit {
 		this._ns.updateNoticia(noticia);
 	}
 
+	updateNosotros(nosotro){
+		const date = new Date();
+		const fecha: string = date.getDate().toString() + "/" 
+		+ (date.getMonth() + 1).toString() + "/" 
+		+ date.getFullYear().toString();
+		let nosotros: Nosotros = {
+			descripcion: this.noticia.descripcion,
+			fecha: fecha,
+			tiempo: date.getTime(),
+		}
+		this._nos.updateNoticia(nosotros);
+	}
+
 	limpiar(titulo = "", descripcion = ""){
 		this.noticia.titulo = titulo;
 		this.noticia.descripcion = descripcion;
@@ -73,17 +94,17 @@ export class AdministrarComponent implements OnInit {
 		this.limpiar(noticia.titulo, noticia.descripcion);
 	}
 
-	abrirModal(content, posicion, accion, noticia = null) {
-		if(noticia != null){this.reemplazarDatos(noticia);}
+	abrirModal(content, posicion, accion, objeto = null) {
+		if(objeto != null){this.reemplazarDatos(objeto);}
 		this.modalService.open(content).result.then((result) => {
 			
 			switch (posicion) {
 				case "1":
-					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar", noticia)}
+					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar", objeto)}
 					this.limpiar();
 					break;
 				case "2":
-					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
+					 this.updateNosotros(objeto);
 					break;
 				case "3":
 					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}

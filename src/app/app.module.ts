@@ -35,6 +35,8 @@ import { AdministrarComponent } from './components/administrar/administrar.compo
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NoticiasService } from './providers/noticias.service';
+import { NosotrosService } from './providers/nosotros.service';
+import { NoticiaComponent } from './components/noticia/noticia.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { NoticiasService } from './providers/noticias.service';
     NoticiasComponent,
     EmpleadosmesComponent,
     LoginComponent,
-    AdministrarComponent
+    AdministrarComponent,
+    NoticiaComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,8 @@ import { NoticiasService } from './providers/noticias.service';
     })
   ],
   providers: [
-      NoticiasService
+      NoticiasService,
+      NosotrosService
   ],
   bootstrap: [AppComponent]
 })
