@@ -36,7 +36,10 @@ import { AdministrarComponent } from './components/administrar/administrar.compo
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NoticiasService } from './providers/noticias.service';
 import { NosotrosService } from './providers/nosotros.service';
+import { EmpleadomesService } from './providers/empleadomes.service';
 import { NoticiaComponent } from './components/noticia/noticia.component';
+import { ColombiaComponent } from './components/colombia/colombia.component';
+import { ArgentinaComponent } from './components/argentina/argentina.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,9 @@ import { NoticiaComponent } from './components/noticia/noticia.component';
     EmpleadosmesComponent,
     LoginComponent,
     AdministrarComponent,
-    NoticiaComponent
+    NoticiaComponent,
+    ColombiaComponent,
+    ArgentinaComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +82,8 @@ import { NoticiaComponent } from './components/noticia/noticia.component';
   ],
   providers: [
       NoticiasService,
-      NosotrosService
+      NosotrosService,
+      EmpleadomesService
   ],
   bootstrap: [AppComponent]
 })

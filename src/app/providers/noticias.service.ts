@@ -9,7 +9,7 @@ export class NoticiasService {
 	private itemsCollection: AngularFirestoreCollection<Noticia>;
 
 	constructor(private afs: AngularFirestore, private storage: AngularFireStorage) { 
-	}
+	} 
 
 	cargarNoticias(){
 		this.itemsCollection = this.afs.collection<Noticia>('noticias', ref => ref.orderBy('tiempo', 'desc'));
@@ -22,6 +22,12 @@ export class NoticiasService {
 		const file = event.target.files[0];
 		const filePath = 'img/' + nombreImg;
 		const task = this.storage.upload(filePath, file);
+	}
+
+	buscar(key){
+		const docu = this.itemsCollection.doc(key).snapshotChanges();
+		console.log(docu);
+		return docu;
 	}
 
 	updateNoticia(noticia: Noticia){

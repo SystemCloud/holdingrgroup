@@ -8,3 +8,5 @@ export { EmpleadosmesComponent } from "./empleadosmes/empleadosmes.component";
 export { LoginComponent } from "./login/login.component";
 export { AdministrarComponent } from "./administrar/administrar.component";
 export { NoticiaComponent } from "./noticia/noticia.component";
+export { ColombiaComponent } from "./colombia/colombia.component";
+export { ArgentinaComponent } from "./argentina/argentina.component";

@@ -15,6 +15,7 @@ export class NoticiasComponent implements OnInit {
 
 	constructor(public storage: AngularFireStorage, public _ns: NoticiasService) { 
 		this._ns.cargarNoticias().subscribe();
+		this._ns.buscar("1519618336068");
 		this.contador = 0;
 	}
 

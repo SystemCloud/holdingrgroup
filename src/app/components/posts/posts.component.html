@@ -14,59 +14,21 @@
 			</div>
 
 			<div class="row" style="margin-right: 10px; margin-left: 10px;">
-				<div class="col-md-4 ">
+				<div class="col-md-4 " *ngFor="let noticia of noticias">
 					<div class="card">
 						<div class="recent-posts">
 							<article class="post">
 								<div class="owl-theme nav-inside mb-sm">
 									<div>
-										<img alt="" class="img-responsive img-rounded" src="assets/img/blog/blog-image-2.jpg">
+										<img alt="" class="img-responsive img-rounded" [src]="imagenes(actualizarContador()) | async">
 									</div>
 								</div>
 								<div class="date">
 									<span class="day">15</span>
 									<span class="month">Jan</span>
 								</div>
-								<h4><a href="blog-post.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit vehicula est, in consequat libero. <a href="/" class="read-more">read more <i class="fa fa-angle-right"></i></a></p>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 ">
-					<div class="card">
-						<div class="recent-posts">
-							<article class="post">
-								<div class="owl-theme nav-inside mb-sm">
-									<div>
-										<img alt="" class="img-responsive img-rounded" src="assets/img/blog/blog-image-2.jpg">
-									</div>
-								</div>
-								<div class="date">
-									<span class="day">15</span>
-									<span class="month">Jan</span>
-								</div>
-								<h4><a href="blog-post.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit vehicula est, in consequat libero. <a href="/" class="read-more">read more <i class="fa fa-angle-right"></i></a></p>
-							</article>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 ">
-					<div class="card">
-						<div class="recent-posts">
-							<article class="post">
-								<div class="owl-theme nav-inside mb-sm">
-									<div>
-										<img alt="" class="img-responsive img-rounded" src="assets/img/blog/blog-image-2.jpg">
-									</div>
-								</div>
-								<div class="date">
-									<span class="day">15</span>
-									<span class="month">Jan</span>
-								</div>
-								<h4><a href="blog-post.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit vehicula est, in consequat libero. <a href="/" class="read-more">read more <i class="fa fa-angle-right"></i></a></p>
+								<h4><a href="blog-post.html">{{noticia.titulo}}</a></h4>
+								<p>{{noticia.descripcion}} <a routerLink="/noticia/{{noticia.tiempo}}" class="read-more">read more <i class="fa fa-angle-right"></i></a></p>
 							</article>
 						</div>
 					</div>

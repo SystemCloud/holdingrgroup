@@ -4,24 +4,24 @@
 			<div class="owl-theme">
 				<div>
 					<span class="img-thumbnail">
-						<img alt="" height="300" class="img-responsive" src="assets/img/team/team-3.jpg">
+						<img alt="" height="300" class="img-responsive" [src]="profileUrl | async">
 					</span>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-8">
 
-			<h2 class="mb-none">Joe <strong>Doe</strong></h2>
+			<h2 class="mb-none">{{nombre}}</h2>
 			<h4 class="heading-primary">Empleado del Mes</h4>
 
 			<hr class="solid">
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque neque eget diam posuere porta. Quisque ut nulla at nunc <a href="#">vehicula</a> lacinia. Proin adipiscing porta tellus, ut feugiat nibh adipiscing sit amet. In eu justo a felis faucibus ornare vel id metus. Vestibulum ante ipsum primis in faucibus.</p>
+			<p>{{descripcion}}</p>
 
 			<ul class="list list-icons">
-				<li><i class="fa fa-check"></i> Fusce sit amet orci quis arcu vestibulum vestibulum sed ut felis.</li>
-				<li><i class="fa fa-check"></i> Phasellus in risus quis lectus iaculis vulputate id quis nisl.</li>
-				<li><i class="fa fa-check"></i> Iaculis vulputate id quis nisl.</li>
+				<li><i class="fa fa-check"></i> Esforzado.</li>
+				<li><i class="fa fa-check"></i> Puntual.</li>
+				<li><i class="fa fa-check"></i> Trabajador.</li>
 			</ul>
 
 		</div>

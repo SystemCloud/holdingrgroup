@@ -1,0 +1,93 @@
+<div role="main" class="main animated fadeIn">
+
+	<section class="page-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Contactanos</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="mb-none">Mapa <strong>Argentina</strong></h2>
+
+
+				<hr class="tall">
+			</div>
+		</div>
+	</div>
+
+	<agm-map [latitude]="lat" [longitude]="lng">
+		<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+	</agm-map>
+
+	<div class="container">
+
+		<div class="row" style="padding-top: 50px;">
+			<div class="col-md-6">
+
+				<div class="alert alert-success hidden" id="contactSuccess">
+					<strong>Correcto!</strong> Tu correo fue envio exitosamente
+				</div>
+
+				<div class="alert alert-danger hidden" id="contactError">
+					<strong>Error!</strong> There was an error sending your message.
+				</div>
+
+				<h2 class="mb-sm mt-sm"><strong>Contactanos</strong></h2>
+				<form id="contactForm" action="php/contact-form.php" method="POST">
+					
+					<div class="form-group">
+						<div class="col-md-6">
+							<label>Tu nombre *</label>
+							<input type="text" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control" name="name" id="name" required>
+						</div>
+						<div class="col-md-6">
+							<label>Tu correo *</label>
+							<input type="email" value="" data-msg-required="Please enter your email address." data-msg-email="Please enter a valid email address." maxlength="100" class="form-control" name="email" id="email" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+							<label>Asunto</label>
+							<input type="text" value="" data-msg-required="Please enter the subject." maxlength="100" class="form-control" name="subject" id="subject" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+							<label>Mensaje *</label>
+							<textarea maxlength="5000" data-msg-required="Please enter your message." rows="10" class="form-control" name="message" id="message" required></textarea>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<input type="submit" value="Enviar" class="btn btn-primary btn-lg mb-xlg" data-loading-text="Loading...">
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6">
+
+				<h4 class="heading-primary mt-lg">Gracias por <strong>contactarnos</strong></h4>
+				<p>Nosotros te responderemos a la brevedad</p>
+
+				<hr>
+
+				<h4 class="heading-primary">Nuetras <strong>Oficinas</strong></h4>
+				<ul class="list list-icons list-icons-style-3 mt-xlg">
+					<li><i class="fa fa-map-marker"></i> <strong>Direccion:</strong> 1234 Street Name, City Name, United States</li>
+					<li><i class="fa fa-phone"></i> <strong>Telefono:</strong> (123) 456-789</li>
+					<li><i class="fa fa-envelope"></i> <strong>correo:</strong> <a href="mailto:mail@example.com">mail@example.com</a></li>
+				</ul>
+
+				<hr>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

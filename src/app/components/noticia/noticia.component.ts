@@ -10,13 +10,13 @@ import { Noticia } from '../../interface/noticia.interface';
 export class NoticiaComponent implements OnInit {
 	noticia: Noticia;
 
-	constructor(private route: ActivatedRoute, private router:Router) { }
+	constructor() { }
 
 	ngOnInit() {
-		this.route.params.subscribe(params => {
+		/*this.route.params.subscribe(params => {
 			this.noticia = params['notician'];
 			console.log(this.noticia);
-		})
+		})*/
 	}
 
 }

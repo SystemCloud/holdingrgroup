@@ -9,7 +9,9 @@ import {
 	EmpleadosmesComponent,
 	LoginComponent,
 	NoticiaComponent,
-	AdministrarComponent
+	AdministrarComponent,
+	ColombiaComponent,
+	ArgentinaComponent
 } from "./components/index.paginas";
 
 
@@ -18,9 +20,11 @@ const app_routes: Routes = [
 	{ path: 'nosotros', component: NosotrosComponent},
 	{ path: 'galeria', component: GaleriaComponent},
 	{ path: 'noticias', component: NoticiasComponent},
-	{ path: 'noticia/:notician', component: NoticiaComponent},
+	{ path: 'noticia/:id', component: NoticiaComponent},
 	{ path: 'servicios', component: ServiciosComponent},
 	{ path: 'contacto', component: ContactoComponent},
+	{ path: 'colombia', component: ColombiaComponent},
+	{ path: 'argentina', component: ArgentinaComponent},
 	{ path: 'empleadosmes', component: EmpleadosmesComponent},
 	{ path: 'administrador', component: AdministrarComponent},
 	{ path: 'admin', component: LoginComponent},

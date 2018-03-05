@@ -84,7 +84,7 @@
 							<ng-template ngbTabContent>
 								<div class="col-md-9"><h4><strong>Empleado</strong> del Mes</h4></div>
 								<div class="col-md-3">
-									<button (click)="open(empleadomes)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm">Agregar</button>
+									<button (click)="abrirModal(empleadomes, '3', '1')" type="button" class="btn btn-3d btn-primary mr-xs mb-sm">Agregar</button>
 								</div>
 
 
@@ -103,21 +103,34 @@
 											<th>
 												Fecha
 											</th>
+											<th>
+												Imagen
+											</th>
+											<th>
+												Operaciones
+											</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr *ngFor="let empleado of _es.empleados">
 											<td>
-												1
+												{{empleado.tiempo}}
 											</td>
 											<td>
-												Mark
+												{{empleado.nombre}}
 											</td>
 											<td>
-												Otto
+												{{empleado.descripcion}}
 											</td>
 											<td>
-												@mdo
+												{{empleado.fecha}}
+											</td>
+											<td width="10%">
+												<button (click)="verImagen(empleado.nombreImg, imagene)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm btn-xs">Ver Imagen</button>
+											</td>
+											<td width="20%">
+												<button (click)="abrirModal(empleadomes, '3', '2', empleado)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm btn-xs">Editar</button>
+												<button (click)="eliminarEmpleado(empleado.tiempo)" type="button" class="btn btn-3d btn-secondary mr-xs mb-sm btn-xs">Eliminar</button>
 											</td>
 										</tr>
 									</tbody>
@@ -309,7 +322,7 @@
 	</div>
 </ng-template>
 
-<!--<ng-template #empleadomes let-c="close" let-d="dismiss">
+<ng-template #empleadomes let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<h4 class="modal-title">Agregar Empleado del Mes</h4>
 		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -319,23 +332,27 @@
 	<div class="modal-body" style="padding: 20px;">
 		<form (ngSubmit)="guardarNoticia()" id="frmNtc">
 			<div class="form-group">
-				<label for="formGroupExampleInput"><strong>Titulo</strong></label>
-				<input [(ngModel)]="noticia.titulo" name="titulo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingresar titulo">
+				<label for="formGroupExampleInput"><strong>Nombre Empleado</strong></label>
+				<input [(ngModel)]="empleados.nombre" name="titulo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingresar nombre">
+			</div>
+			<div class="form-group">
+				<label for="formGroupExampleInput"><strong>Fecha</strong></label>
+				<input [(ngModel)]="empleados.fecha" name="titulo" type="text" class="form-control" id="formGroupExampleInput" placeholder="--/--/--">
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1"><strong>Descripcion</strong></label>
-				<textarea [(ngModel)]="noticia.descripcion" name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				<textarea [(ngModel)]="empleados.descripcion" name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlFile1"><strong>Seleccionar una foto</strong></label>
-				<input type="file" class="form-control-file" id="exampleFormControlFile1">
+				<input (change)="capturarEvent($event)" type="file" class="form-control-file" id="exampleFormControlFile1">
 			</div>
 		</form>
 	</div>
 	<div class="modal-footer">
 		<button type="submit" class="btn btn-outline-dark" (click)="c('Close click')">Guardar</button>
 	</div>
-</ng-template>-->
+</ng-template>
 
 <ng-template #sobrenosotros let-c="close" let-d="dismiss">
 	<div class="modal-header">

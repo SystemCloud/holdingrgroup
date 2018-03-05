@@ -6,8 +6,10 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { NoticiasService } from '../../providers/noticias.service';
 import { NosotrosService } from '../../providers/nosotros.service';
+import { EmpleadomesService } from '../../providers/empleadomes.service';
 import { Noticia } from '../../interface/noticia.interface';
 import { Nosotros } from '../../interface/nosotros.interface';
+import { Empleado } from '../../interface/empleado.interface';
 
 @Component({
 	selector: 'app-administrar',
@@ -18,6 +20,7 @@ export class AdministrarComponent implements OnInit {
 	public noticia;
 	public event;
 	public nombreImg;
+	public empleados;
 	closeResult: string;
 	profileUrl;
 
@@ -26,7 +29,8 @@ export class AdministrarComponent implements OnInit {
 		private router:Router, 
 		private modalService: NgbModal, 
 		public _ns: NoticiasService,
-		public _nos: NosotrosService) {		
+		public _nos: NosotrosService,
+		public _es: EmpleadomesService) {		
 		this.afAuth.authState.subscribe( user =>{
 			if(!user){
 				this.router.navigate(['/home']);
@@ -36,8 +40,14 @@ export class AdministrarComponent implements OnInit {
 			"titulo": "",
 			"descripcion": ""
 		}
+		this.empleados = {
+			"nombre":"",
+			"descripcion": "",
+			"fecha":""
+		}
 		this._ns.cargarNoticias().subscribe();
 		this._nos.cargarNosotros().subscribe();
+		this._es.cargarEmpleados().subscribe();
 	}
 
 	ngOnInit() {
@@ -60,7 +70,8 @@ export class AdministrarComponent implements OnInit {
 			nombreImg: this.nombreImg
 		}
 		if(estado != "actualizar"){ 
-			this._ns.uploadFile(this.event, this.nombreImg);			
+			this._ns.uploadFile(this.event, this.nombreImg);
+			//debemos validar si el campo esta vacio o no			
 		}
 		if(noticiaa != null){
 			noticiaa.titulo = this.noticia.titulo;
@@ -84,37 +95,81 @@ export class AdministrarComponent implements OnInit {
 		this._nos.updateNoticia(nosotros);
 	}
 
-	limpiar(titulo = "", descripcion = ""){
+	updateEmpleado(estado = "registrar", empleadoo = null){
+		const date = new Date();
+		let empleado: Empleado = {
+			nombre: this.empleados.nombre,
+			descripcion: this.empleados.descripcion,
+			fecha: this.empleados.fecha,
+			tiempo: date.getTime(),
+			nombreImg: this.nombreImg
+		}
+		if(estado != "actualizar"){ 
+			this._es.uploadFile(this.event, this.nombreImg);
+			//debemos validar si el campo esta vacio o no			
+		}
+		if(empleadoo != null){
+			empleadoo.nombre = this.empleados.nombre;
+			empleadoo.descripcion = this.empleados.descripcion;
+			empleadoo.fecha = this.empleados.fecha;
+			empleado = empleadoo;
+		}	
+		this._es.updateEmpleado(empleado);
+	}
+
+	limpiarNoticia(titulo = "", descripcion = ""){
 		this.noticia.titulo = titulo;
 		this.noticia.descripcion = descripcion;
 	}
 
-	reemplazarDatos(noticia){
-		console.log(noticia);
-		this.limpiar(noticia.titulo, noticia.descripcion);
+	limpiar(){
+		this.noticia.titulo = "";
+		this.noticia.descripcion = "";
+		this.empleados.nombre = "";
+		this.empleados.descripcion = "";
+		this.empleados.fecha = "";
 	}
 
+	reemplazarDatos(noticia){
+		this.limpiarNoticia(noticia.titulo, noticia.descripcion);
+	}
+
+	reemplazarEmpleado(empleado){
+		this.empleados.nombre = empleado.nombre;
+		this.empleados.descripcion = empleado.descripcion;
+		this.empleados.fecha = empleado.fecha;
+	}
+
+	//falta limpiar los campos
+
 	abrirModal(content, posicion, accion, objeto = null) {
-		if(objeto != null){this.reemplazarDatos(objeto);}
-		this.modalService.open(content).result.then((result) => {
-			
+		this.limpiar();
+		if(objeto != null){
+			this.reemplazarDatos(objeto);
+			this.reemplazarEmpleado(objeto);
+		}
+		this.modalService.open(content).result.then((result) => {			
 			switch (posicion) {
 				case "1":
-					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar", objeto)}
-					this.limpiar();
-					break;
+				if(accion == "1"){ this.updateNoticia()} else {					
+					this.updateNoticia("actualizar", objeto)
+				}
+				this.limpiarNoticia();
+				break;
 				case "2":
-					 this.updateNosotros(objeto);
-					break;
+				this.updateNosotros(objeto);
+				break;
 				case "3":
-					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
-					break;
+				if(accion == "1"){ this.updateEmpleado()} else {
+					this.updateEmpleado("actualizar", objeto);
+				}
+				break;
 				case "4":
-					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
+				if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
 					break;
 				
 				default:
-					if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
+				if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
 					break;
 			}
 		}, (reason) => {
@@ -133,6 +188,10 @@ export class AdministrarComponent implements OnInit {
 
 	eliminarNoticia(key){
 		this._ns.eliminarNoticia(key);
+	}
+
+	eliminarEmpleado(key){
+		this._es.eliminarEmpleado(key);
 	}
 
 	verImagen(nombre, content){

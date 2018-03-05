@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NosotrosService } from '../../providers/nosotros.service';
+import { NosotrosService } from '../../providers/nosotros.service'; 
 
 @Component({
 	selector: 'app-acercade',
