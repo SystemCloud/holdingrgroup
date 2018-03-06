@@ -27,69 +27,15 @@
 				<div class="row">
 
 					<ul class="image-gallery sort-destination lightbox" data-sort-id="portfolio" data-plugin-options='{"delegate": "a.lightbox-portfolio", "type": "image", "gallery": {"enabled": true}}'>
-						<li class="col-md-3 col-sm-6 col-xs-12 isotope-item websites">
+						<li class="col-md-3 col-sm-6 col-xs-12 isotope-item websites" *ngFor="let galeri of galerias">
 							<div class="image-gallery-item">
 								<a href="assets/img/projects/project.jpg" class="lightbox-portfolio">
 									<span class="thumb-info">
 										<span class="thumb-info-wrapper">
-											<img src="assets/img/projects/project.jpg" class="img-responsive" alt="">
+											<img [src]="imagenes(actualizarContador()) | async" class="img-responsive" alt="">
 											<span class="thumb-info-title">
-												<span class="thumb-info-inner">Titulo de proyecto</span>
-												<span class="thumb-info-type">Tipo de proyecto</span>
-											</span>
-											<span class="thumb-info-action">
-												<span class="thumb-info-action-icon"><i class="fa fa-link"></i></span>
-											</span>
-										</span>
-									</span>
-								</a>
-							</div>
-						</li>
-						<li class="col-md-3 col-sm-6 col-xs-12 isotope-item logos">
-							<div class="image-gallery-item">
-								<a href="assets/img/projects/project-2.jpg" class="lightbox-portfolio">
-									<span class="thumb-info">
-										<span class="thumb-info-wrapper">
-											<img src="assets/img/projects/project-2.jpg" class="img-responsive" alt="">
-											<span class="thumb-info-title">
-												<span class="thumb-info-inner">Titulo de proyecto</span>
-												<span class="thumb-info-type">Tipo de proyecto</span>
-											</span>
-											<span class="thumb-info-action">
-												<span class="thumb-info-action-icon"><i class="fa fa-link"></i></span>
-											</span>
-										</span>
-									</span>
-								</a>
-							</div>
-						</li>
-						<li class="col-md-3 col-sm-6 col-xs-12 isotope-item brands">
-							<div class="image-gallery-item">
-								<a href="assets/img/projects/project-4.jpg" class="lightbox-portfolio">
-									<span class="thumb-info">
-										<span class="thumb-info-wrapper">
-											<img src="assets/img/projects/project-4.jpg" class="img-responsive" alt="">
-											<span class="thumb-info-title">
-												<span class="thumb-info-inner">Titulo de proyecto</span>
-												<span class="thumb-info-type">Tipo de Proyecto</span>
-											</span>
-											<span class="thumb-info-action">
-												<span class="thumb-info-action-icon"><i class="fa fa-link"></i></span>
-											</span>
-										</span>
-									</span>
-								</a>
-							</div>
-						</li>
-						<li class="col-md-3 col-sm-6 col-xs-12 isotope-item websites">
-							<div class="image-gallery-item">
-								<a href="assets/img/projects/project-5.jpg" class="lightbox-portfolio">
-									<span class="thumb-info">
-										<span class="thumb-info-wrapper">
-											<img src="assets/img/projects/project-5.jpg" class="img-responsive" alt="">
-											<span class="thumb-info-title">
-												<span class="thumb-info-inner">Titulo de proyecto</span>
-												<span class="thumb-info-type">Tipo de Proyecto</span>
+												<span class="thumb-info-inner">{{galeri.nombre}}</span>
+												<span class="thumb-info-type">Trabajo en Equipo</span>
 											</span>
 											<span class="thumb-info-action">
 												<span class="thumb-info-action-icon"><i class="fa fa-link"></i></span>
@@ -103,54 +49,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div>
-			<ul class="galeria">
-				<li><a href="#img1"><img src="https://www.paisajesimagenes.com/wp-content/uploads/Descripci%C3%B3n-de-paisajes..jpg"></a></li>
-				<li><a href="#img2"><img src="https://neo-deco.es/wp-content/uploads/2013/01/Paisaje-de-monta%C3%B1a.jpg"></a></li>
-				<li><a href="#img3"><img src="https://www.paisajesimagenes.com/wp-content/uploads/Descripci%C3%B3n-de-paisajes..jpg"></a></li>
-				<li><a href="#img4"><img src="https://neo-deco.es/wp-content/uploads/2013/01/Paisaje-de-monta%C3%B1a.jpg"></a></li>
-			</ul>
-
-			<div class="modal" id="img1">
-				<h3>Paisaje 1</h3>
-				<div class="imagen">
-					<a href="#img4">&#60;</a>
-					<a href="#img2"><img src="https://www.paisajesimagenes.com/wp-content/uploads/Descripci%C3%B3n-de-paisajes..jpg"></a>
-					<a href="#img2">></a>
-				</div>
-				<a class="cerrar" href="">X</a>
-			</div>
-
-			<div class="modal" id="img2">
-				<h3>Paisaje 2</h3>
-				<div class="imagen">
-					<a href="#img1">&#60;</a>
-					<a href="#img3"><img src="https://neo-deco.es/wp-content/uploads/2013/01/Paisaje-de-monta%C3%B1a.jpg"></a>
-					<a href="#img3">></a>
-				</div>
-				<a class="cerrar" href="">X</a>
-			</div>
-
-			<div class="modal" id="img3">
-				<h3>Paisaje 3</h3>
-				<div class="imagen">
-					<a href="#img2">&#60;</a>
-					<a href="#img4"><img src="https://www.paisajesimagenes.com/wp-content/uploads/Descripci%C3%B3n-de-paisajes..jpg"></a>
-					<a href="#img4">></a>
-				</div>
-				<a class="cerrar" href="">X</a>
-			</div>
-
-			<div class="modal" id="img4">
-				<h3>Paisaje 4</h3>
-				<div class="imagen">
-					<a href="#img3">&#60;</a>
-					<a href="#img1"><img src="https://neo-deco.es/wp-content/uploads/2013/01/Paisaje-de-monta%C3%B1a.jpg"></a>
-					<a href="#img1">></a>
-				</div>
-				<a class="cerrar" href="">X</a>
-			</div>
-		</div>
+		
 	</div>
 </div>

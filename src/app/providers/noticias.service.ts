@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { Noticia } from '../interface/noticia.interface';
+import { Noticia } from '../interface/noticia.interface'; 
 
 @Injectable()
 export class NoticiasService {
 	public noticias: Noticia[] = [];
+	public noticia: Noticia[] = [];
 	private itemsCollection: AngularFirestoreCollection<Noticia>;
 
 	constructor(private afs: AngularFirestore, private storage: AngularFireStorage) { 
@@ -25,9 +26,11 @@ export class NoticiasService {
 	}
 
 	buscar(key){
-		const docu = this.itemsCollection.doc(key).snapshotChanges();
-		console.log(docu);
-		return docu;
+		return this.afs.collection<Noticia>('noticias', ref => ref.where('tiempo', '==', key))
+			.valueChanges().map((noticia: Noticia[]) => {
+				this.noticia = noticia;
+			});
+		
 	}
 
 	updateNoticia(noticia: Noticia){

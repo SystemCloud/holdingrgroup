@@ -5,4 +5,7 @@ export interface Empleado{
 	descripcion: string;
 	fecha?: string;
 	nombreImg: string;
+	actitudes: string;
+	desempeno: string;
+	cumplimiento: string;
 }

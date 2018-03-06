@@ -1,10 +1,10 @@
-<div class="container animated fadeIn" *ngFor="let empleado of _es.empleados">
+<div class="container animated fadeIn" *ngFor="let empleado of empleados">
 	<div class="row" style="margin-top: 120px;">
 		<div class="col-md-4">
 			<div class="owl-theme">
 				<div>
 					<span class="img-thumbnail">
-						<img alt="" height="300" class="img-responsive" src="assets/img/team/team-3.jpg">
+						<img alt="" height="300" class="img-responsive" [src]="imagenes(actualizarContador()) | async">
 					</span>
 				</div>
 			</div>
@@ -12,16 +12,16 @@
 		<div class="col-md-8">
 
 			<h2 class="mb-none">{{empleado.nombre}}</h2>
-			<h4 class="heading-primary">Empleado del Mes - {{empleado.fecha}}</h4>
+			<h4 class="heading-primary">Empleado del - {{empleado.fecha}}</h4>
 
 			<hr class="solid">
 
 			<p>{{empleado.descripcion}}</p>
 
 			<ul class="list list-icons">
-				<li><i class="fa fa-check"></i> Fusce sit amet orci quis arcu vestibulum vestibulum sed ut felis.</li>
-				<li><i class="fa fa-check"></i> Phasellus in risus quis lectus iaculis vulputate id quis nisl.</li>
-				<li><i class="fa fa-check"></i> Iaculis vulputate id quis nisl.</li>
+				<li><i class="fa fa-check"></i> {{empleado.actitudes}}</li>
+				<li><i class="fa fa-check"></i> {{empleado.desempeno}}</li>
+				<li><i class="fa fa-check"></i> {{empleado.cumplimiento}}</li>
 			</ul>
 
 		</div>

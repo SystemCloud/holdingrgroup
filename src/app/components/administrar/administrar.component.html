@@ -177,6 +177,52 @@
 							</ng-template>
 						</ngb-tab>
 						<ngb-tab>
+							<ng-template ngbTabTitle><b>Galeria </b>de fotos</ng-template>
+							<ng-template ngbTabContent>
+								<div class="col-md-9"><h4><strong>Fotos</strong></h4></div>
+								<div class="col-md-3">
+									<button (click)="abrirModal(galeria, '4', '1')" type="button" class="btn btn-3d btn-primary mr-xs mb-sm">Agregar</button>
+								</div>
+
+
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>
+												#
+											</th>
+											<th>
+												Nombre
+											</th>
+											<th>
+												Imagen
+											</th>
+											<th>
+												Operaciones
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let galeri of _gs.galerias">
+											<td>
+												{{galeri.tiempo}}
+											</td>
+											<td>
+												{{galeri.nombre}}
+											</td>
+											<td width="10%">
+												<button (click)="verImagen(galeri.nombreImg, imagene)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm btn-xs">Ver Imagen</button>
+											</td>
+											<td width="20%">
+												<button (click)="abrirModal(galeria, '4', '2', galeri)" type="button" class="btn btn-3d btn-primary mr-xs mb-sm btn-xs">Editar</button>
+												<button (click)="eliminarGaleria(galeri.tiempo)" type="button" class="btn btn-3d btn-secondary mr-xs mb-sm btn-xs">Eliminar</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</ng-template>
+						</ngb-tab>
+						<ngb-tab>
 							<ng-template ngbTabTitle><b>Servicios</b></ng-template>
 							<ng-template ngbTabContent>
 								<div class="col-md-9"><h4><strong>Noticias</strong></h4></div>
@@ -333,15 +379,27 @@
 		<form (ngSubmit)="guardarNoticia()" id="frmNtc">
 			<div class="form-group">
 				<label for="formGroupExampleInput"><strong>Nombre Empleado</strong></label>
-				<input [(ngModel)]="empleados.nombre" name="titulo" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingresar nombre">
+				<input [(ngModel)]="empleados.nombre" name="empleados.nombre" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingresar nombre">
 			</div>
 			<div class="form-group">
 				<label for="formGroupExampleInput"><strong>Fecha</strong></label>
-				<input [(ngModel)]="empleados.fecha" name="titulo" type="text" class="form-control" id="formGroupExampleInput" placeholder="--/--/--">
+				<input [(ngModel)]="empleados.fecha" name="empleados.fecha" type="text" class="form-control" id="formGroupExampleInput" placeholder="--/--/--">
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1"><strong>Descripcion</strong></label>
 				<textarea [(ngModel)]="empleados.descripcion" name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="formGroupExampleInput"><strong>Actitudes</strong></label>
+				<input [(ngModel)]="empleados.actitudes" name="empleados.actitudes" type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+			</div>
+			<div class="form-group">
+				<label for="formGroupExampleInput"><strong>Desempeño</strong></label>
+				<input [(ngModel)]="empleados.desempeno" name="empleados.desempeno" type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+			</div>
+			<div class="form-group">
+				<label for="formGroupExampleInput"><strong>Cumplimiento</strong></label>
+				<input [(ngModel)]="empleados.cumplimiento" name="empleados.cumplimiento" type="text" class="form-control" id="formGroupExampleInput" placeholder="">
 			</div>
 			<div class="form-group">
 				<label for="exampleFormControlFile1"><strong>Seleccionar una foto</strong></label>
@@ -374,6 +432,29 @@
 	</div>
 </ng-template>
 
+<ng-template #galeria let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title">Agregar Imagen</h4>
+		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body" style="padding: 20px;">
+		<form (ngSubmit)="guardarNoticia()" id="frmNtc">
+			<div class="form-group">
+				<label for="formGroupExampleInput"><strong>Titulo</strong></label>
+				<input [(ngModel)]="fotos.nombre" required name="fotos.nombre" type="text" class="form-control" id="formGroupExampleInput" placeholder="Ingresar nombre">
+			</div>
+			<div class="form-group">
+				<label for="exampleFormControlFile1"><strong>Seleccionar una foto</strong></label>
+				<input [(ngModel)]="imagen" name="imagen" required type="file" (change)="capturarEvent($event)" class="form-control-file" id="exampleFormControlFile1">
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-outline-dark" (click)="c('Close click')">Guardar</button>
+	</div>
+</ng-template>
 <!--<ng-template #servicio let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<h4 class="modal-title">Agregar Servicios</h4>

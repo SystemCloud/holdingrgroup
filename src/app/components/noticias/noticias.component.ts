@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticiasService } from '../../providers/noticias.service';
 import { AngularFireStorage } from 'angularfire2/storage';
+import { Noticia } from '../../interface/noticia.interface';
 
 @Component({
 	selector: 'app-noticias',
@@ -9,37 +10,51 @@ import { AngularFireStorage } from 'angularfire2/storage';
 })
 export class NoticiasComponent implements OnInit {
 	estadoLado: boolean = true;
-	profileImg;
-	contador;
-	imagenes: any[];
+	noticias: Noticia[] = [];
+	profileUrl: any[] = [];
+	contador = 0;
 
 	constructor(public storage: AngularFireStorage, public _ns: NoticiasService) { 
-		this._ns.cargarNoticias().subscribe();
-		this._ns.buscar("1519618336068");
-		this.contador = 0;
+		this._ns.cargarNoticias().subscribe(data =>{
+			if(!data){
+				this.reemplazar();
+			}
+		} );
 	}
 
 	ngOnInit() {
+	}
+
+	actualizarContador(){
+		if(this.contador<this._ns.noticias.length-1){
+			this.contador = this.contador + 1;
+		}else{
+			this.contador = 0;
+		}
+		var cont = this.contador - 1;
+		if(cont==-1){cont=this._ns.noticias.length-1}
+		return cont;
+	}
+
+	imagenes(num){
+		return this.profileUrl[num];
 	}
 
 	cambiarclase(){
 		this.estadoLado = !this.estadoLado; 
 	}
 
-	//TODO: falta corregir, el metodo esta en un obserbable y hace demasiadas peticiones
-	/*imagen(noticia){
-
-		console.log(noticia);
-		if(noticia.length > this.contador){
-			const ref = this.storage.ref('img/' + noticia.nombreImg);
-			this.profileImg = ref.getDownloadURL();
-			this.imagenes[this.contador] = this.profileImg;
-			this.contador++;
-
-			console.log(this.profileImg);
-			console.log(this.imagenes[0]);
+	reemplazar(){
+		for (var i = 0; i < this._ns.noticias.length; i++) {
+			this.noticias[i] = this._ns.noticias[i];
+			this.profileUrl[i] = this.verImagen(this._ns.noticias[i].nombreImg);
 		}
-		
-	}*/
+	}
+
+	verImagen(nombre){
+		const ref = this.storage.ref('img/' + nombre);
+		const imagen = ref.getDownloadURL();
+		return imagen;
+	}
 
 }

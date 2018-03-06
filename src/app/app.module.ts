@@ -37,6 +37,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NoticiasService } from './providers/noticias.service';
 import { NosotrosService } from './providers/nosotros.service';
 import { EmpleadomesService } from './providers/empleadomes.service';
+import { GaleriaService } from './providers/galeria.service';
 import { NoticiaComponent } from './components/noticia/noticia.component';
 import { ColombiaComponent } from './components/colombia/colombia.component';
 import { ArgentinaComponent } from './components/argentina/argentina.component';
@@ -83,7 +84,8 @@ import { ArgentinaComponent } from './components/argentina/argentina.component';
   providers: [
       NoticiasService,
       NosotrosService,
-      EmpleadomesService
+      EmpleadomesService,
+      GaleriaService
   ],
   bootstrap: [AppComponent]
 })

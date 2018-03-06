@@ -7,9 +7,11 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { NoticiasService } from '../../providers/noticias.service';
 import { NosotrosService } from '../../providers/nosotros.service';
 import { EmpleadomesService } from '../../providers/empleadomes.service';
+import { GaleriaService } from '../../providers/galeria.service';
 import { Noticia } from '../../interface/noticia.interface';
 import { Nosotros } from '../../interface/nosotros.interface';
 import { Empleado } from '../../interface/empleado.interface';
+import { Galeria } from '../../interface/galeria.interface';
 
 @Component({
 	selector: 'app-administrar',
@@ -18,6 +20,7 @@ import { Empleado } from '../../interface/empleado.interface';
 })
 export class AdministrarComponent implements OnInit {
 	public noticia;
+	public fotos;
 	public event;
 	public nombreImg;
 	public empleados;
@@ -30,6 +33,7 @@ export class AdministrarComponent implements OnInit {
 		private modalService: NgbModal, 
 		public _ns: NoticiasService,
 		public _nos: NosotrosService,
+		public _gs: GaleriaService,
 		public _es: EmpleadomesService) {		
 		this.afAuth.authState.subscribe( user =>{
 			if(!user){
@@ -40,14 +44,23 @@ export class AdministrarComponent implements OnInit {
 			"titulo": "",
 			"descripcion": ""
 		}
+		this.fotos = {
+			"tiempo": "",
+			"nombre": "",
+			"nombreImg": ""
+		}
 		this.empleados = {
 			"nombre":"",
 			"descripcion": "",
-			"fecha":""
+			"fecha":"",
+			"actitudes": "",
+			"desempeno": "",
+			"cumplimiento": ""
 		}
 		this._ns.cargarNoticias().subscribe();
 		this._nos.cargarNosotros().subscribe();
 		this._es.cargarEmpleados().subscribe();
+		this._gs.cargarGalerias().subscribe();
 	}
 
 	ngOnInit() {
@@ -82,6 +95,23 @@ export class AdministrarComponent implements OnInit {
 		this._ns.updateNoticia(noticia);
 	}
 
+	updateGaleria(estado = "registrar", galeriaa = null){
+		const date = new Date();
+		console.log(this.fotos.nombre);
+		let galeria: Galeria = {
+			nombre: this.fotos.nombre,
+			tiempo: date.getTime(),
+			nombreImg: this.nombreImg
+		}
+		if(estado != "actualizar"){ 
+			this._gs.uploadFile(this.event, this.nombreImg);	
+		}
+		if(galeriaa != null){
+			galeria.nombre = this.fotos.nombre
+		}		
+		this._gs.updateGaleria(galeria);
+	}
+
 	updateNosotros(nosotro){
 		const date = new Date();
 		const fecha: string = date.getDate().toString() + "/" 
@@ -102,7 +132,10 @@ export class AdministrarComponent implements OnInit {
 			descripcion: this.empleados.descripcion,
 			fecha: this.empleados.fecha,
 			tiempo: date.getTime(),
-			nombreImg: this.nombreImg
+			nombreImg: this.nombreImg,
+			actitudes: this.empleados.actitudes,
+			desempeno: this.empleados.desempeno,
+			cumplimiento: this.empleados.cumplimiento
 		}
 		if(estado != "actualizar"){ 
 			this._es.uploadFile(this.event, this.nombreImg);
@@ -112,6 +145,9 @@ export class AdministrarComponent implements OnInit {
 			empleadoo.nombre = this.empleados.nombre;
 			empleadoo.descripcion = this.empleados.descripcion;
 			empleadoo.fecha = this.empleados.fecha;
+			empleadoo.actitudes = this.empleados.actitudes;
+			empleadoo.desempeno = this.empleados.desempeno;
+			empleadoo.cumplimiento = this.empleados.cumplimiento;
 			empleado = empleadoo;
 		}	
 		this._es.updateEmpleado(empleado);
@@ -128,6 +164,10 @@ export class AdministrarComponent implements OnInit {
 		this.empleados.nombre = "";
 		this.empleados.descripcion = "";
 		this.empleados.fecha = "";
+		this.empleados.actitudes = "";
+		this.empleados.desempeno = "";
+		this.empleados.cumplimiento = "";
+		this.fotos.nombre = "";
 	}
 
 	reemplazarDatos(noticia){
@@ -138,6 +178,13 @@ export class AdministrarComponent implements OnInit {
 		this.empleados.nombre = empleado.nombre;
 		this.empleados.descripcion = empleado.descripcion;
 		this.empleados.fecha = empleado.fecha;
+		this.empleados.actitudes = empleado.actitudes;
+		this.empleados.desempeno = empleado.desempeno;
+		this.empleados.cumplimiento = empleado.cumplimiento;
+	}
+
+	reemplazarGaleria(galeria){
+		this.fotos.nombre = galeria.nombre;
 	}
 
 	//falta limpiar los campos
@@ -147,6 +194,7 @@ export class AdministrarComponent implements OnInit {
 		if(objeto != null){
 			this.reemplazarDatos(objeto);
 			this.reemplazarEmpleado(objeto);
+			this.reemplazarGaleria(objeto);
 		}
 		this.modalService.open(content).result.then((result) => {			
 			switch (posicion) {
@@ -165,8 +213,10 @@ export class AdministrarComponent implements OnInit {
 				}
 				break;
 				case "4":
-				if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
-					break;
+				if(accion == "1"){ this.updateGaleria()} else {
+					this.updateGaleria("actualizar", objeto);
+				}
+				break;
 				
 				default:
 				if(accion == "1"){ this.updateNoticia()} else {this.updateNoticia("actualizar")}
@@ -192,6 +242,10 @@ export class AdministrarComponent implements OnInit {
 
 	eliminarEmpleado(key){
 		this._es.eliminarEmpleado(key);
+	}
+
+	eliminarGaleria(key){
+		this._gs.eliminarGaleria(key);
 	}
 
 	verImagen(nombre, content){

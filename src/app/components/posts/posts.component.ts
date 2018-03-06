@@ -12,10 +12,11 @@ export class PostsComponent implements OnInit {
 	public noticias: Noticia[] = [];
 	nombre = "¡Somos los mejores!";
 	descripcion = "¡Somos los mejores!";
-	profileUrl: any[] = [Object, Object, Object];
+	profileUrl: any[] = [];
 	contador = 0;
 
 	constructor(public _ns: NoticiasService, private storage: AngularFireStorage) {
+		
 		this._ns.cargarNoticias().subscribe( data =>{
 			if(!data){
 				this.reemplazar();
@@ -24,7 +25,6 @@ export class PostsComponent implements OnInit {
 	}
 
 	actualizarContador(){
-		console.log(this.contador);
 		if(this.contador<2){
 			this.contador = this.contador + 1;
 		}else{
